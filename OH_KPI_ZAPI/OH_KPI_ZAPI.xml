@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OH_KPI_ZAPI</name>
+    </assembly>
+    <members>
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetZBList(OH_KPI_Application.InZBData)">
+            <summary>
+            首页全院指标数据接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetExcel(OH_KPI_Application.InExcel)">
+            <summary>
+            excel导出接口（公共接口）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetZB">
+            <summary>
+            获取所有指标接口（公共接口）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetCBInfo">
+            <summary>
+            获取承办信息接口（公共接口）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetSelect(OH_KPI_Application.InSelect)">
+            <summary>
+            条件筛选数据接口（公共接口）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetComZBList(OH_KPI_Application.ComDto.InMQuery)">
+            <summary>
+            质效分析首页指标接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetZBCom(OH_KPI_Application.ComDto.InZBCom)">
+            <summary>
+            指标对比接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetHisZB(OH_KPI_Application.ComDto.InZBHis)">
+            <summary>
+            历史指标数据接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.DepartController.GetDepartZBList(OH_KPI_Application.DepartDTO.InDepart)">
+            <summary>
+            部门质效首页指标数据接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.DepartController.GetDepartDetail(OH_KPI_Application.DepartDTO.InDepartD)">
+            <summary>
+            详细部门质效指标数据接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.ForController.GetFormulaList(OH_KPI_Application.ForDTO.InFormula)">
+            <summary>
+            计算公式接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.ForController.GetCaseList(OH_KPI_Application.ForDTO.InCase)">
+            <summary>
+            案件信息接口
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Controllers.UserController.Login(OH_KPI_Application.UserDTO.LoginModel)">
+            <summary>
+            登录
+            </summary>
+            <param name="loginModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OH_KPI_ZAPI.Filter.GlobalExceptionsFilter.WriteLog(System.String,System.Exception)">
+            <summary>
+            自定义返回格式
+            </summary>
+            <param name="throwMsg"></param>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="P:OH_KPI_ZAPI.Filter.JsonErrorResponse.Message">
+            <summary>
+            生产环境的消息
+            </summary>
+        </member>
+        <member name="P:OH_KPI_ZAPI.Filter.JsonErrorResponse.DevelopmentMessage">
+            <summary>
+            开发环境的消息
+            </summary>
+        </member>
+    </members>
+</doc>

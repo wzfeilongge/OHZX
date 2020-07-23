@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OH_KPI_Application</name>
+    </assembly>
+    <members>
+        <member name="P:OH_KPI_Application.UserDTO.LoginModel.UserName">
+            <summary>
+            用户名 
+            </summary>
+        </member>
+        <member name="P:OH_KPI_Application.UserDTO.LoginModel.PassWord">
+            <summary>
+            密码 使用用户名拼音
+            </summary>
+        </member>
+        <member name="P:OH_KPI_Application.UserDTO.LoginModel.Department">
+            <summary>
+            法院地址
+            </summary>
+        </member>
+    </members>
+</doc>

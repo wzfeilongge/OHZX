@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace OH_KPI_Models.MysqlModels
+{
+    public partial class AdsSpAj330304
+    {
+        public string EajAhdm { get; set; }
+        public string EajAh { get; set; }
+        public string EajXtajlx { get; set; }
+        public string EajSpcx { get; set; }
+        public string EajSycx { get; set; }
+        public string EajAjly { get; set; }
+        public string EajAjzt { get; set; }
+        public string EajDz { get; set; }
+        public string EajSarq { get; set; }
+        public string EajLarq { get; set; }
+        public string EajJarq { get; set; }
+        public string EajSatj { get; set; }
+        public string EajJatj { get; set; }
+        public string EajSxtj { get; set; }
+        public string EajTjbh { get; set; }
+        public double? EajBdje { get; set; }
+        public string EajYssx { get; set; }
+        public string EajGdjsrq { get; set; }
+        public string EajMqzz { get; set; }
+        public string EajNd { get; set; }
+        public string EajSxrq { get; set; }
+        public long? EajSaay { get; set; }
+        public string EajSpz { get; set; }
+        public string EajCbr { get; set; }
+        public string EajFydm { get; set; }
+        public string EajJafs { get; set; }
+        public string EajAjlb { get; set; }
+        public string EajAyms { get; set; }
+        public string EajSfsm { get; set; }
+        public long? EajAjlxdm { get; set; }
+        public string EajAjlxbs { get; set; }
+        public string EajCbbm1 { get; set; }
+        public string EajSjy { get; set; }
+        public string EajLabm { get; set; }
+        public string EajSar { get; set; }
+        public string EajDsr { get; set; }
+        public string EajBcysftj { get; set; }
+        public long? EajFdsxtsR { get; set; }
+        public string EajTjqkTjfs { get; set; }
+        public string EajTjqkWpdw { get; set; }
+        public string EajTjqkTjdw { get; set; }
+        public string EajSalaSsfw { get; set; }
+        public string EajSalaFbmspc { get; set; }
+        public string EajSalaSsrlx { get; set; }
+        public string EajSalaSsxz { get; set; }
+        public string EajSalaSdclrq { get; set; }
+        public string EajSjqkDtcp { get; set; }
+        public double? EajSjqkJabdje { get; set; }
+        public string EajSjqkJasy1 { get; set; }
+        public string EajSjqkJasy2 { get; set; }
+        public string EajSjqkAy { get; set; }
+        public double? EajSjqkSjdwje { get; set; }
+        public string EajSjqkJafsn { get; set; }
+        public string EajSlCpwsswzt { get; set; }
+        public string EajSlKtsl { get; set; }
+        public string EajSlDysj { get; set; }
+        public string EajSlAjsj { get; set; }
+        public string EajJxjsqkXfbglx { get; set; }
+        public string EajFtsyKturl { get; set; }
+        public string Sftj { get; set; }
+        public long? EajQxFdsxts { get; set; }
+        public long? EajQxSjts { get; set; }
+        public long? EdsrSars { get; set; }
+        public long? EajQxbgKcts { get; set; }
+        public long? EajQxbgYcts { get; set; }
+        public string EajSpcySfpsy { get; set; }
+        public string EajSpcxmc { get; set; }
+        public string EajAjlymc { get; set; }
+        public string EajJafsmc { get; set; }
+        public string EajCbbmmc { get; set; }
+        public string EajLabmmc { get; set; }
+        public string EajCbrmc { get; set; }
+        public double? UserSfre { get; set; }
+        public string EajJasymc { get; set; }
+        public string EajAjlx { get; set; }
+        public string EajSxjmrq { get; set; }
+        public string QxbgBglb { get; set; }
+        public string EajSlQxsl { get; set; }
+        public string EajFtsyFtyt { get; set; }
+        public string EajFtsyKtrq { get; set; }
+        public string EajSdSdrq { get; set; }
+        public string EajSdWslb { get; set; }
+        public string EajFtsySjktrq { get; set; }
+        public string EajTjqkTjrq { get; set; }
+        public string EajTjqkWttjrq { get; set; }
+        public string EajSlTqhysj { get; set; }
+        public string EajSlZdlxr { get; set; }
+        public double? EajSlSshfzje { get; set; }
+        public string EajSfslaj { get; set; }
+        public string EajSlBgrtyrzcx { get; set; }
+        public string EajCxbgCxbglx { get; set; }
+        public string EajFtsyScktja { get; set; }
+        public string EajSksJcyks { get; set; }
+        public string EajSksBgrss { get; set; }
+        public string Sfcsx { get; set; }
+        public string Sfycsx { get; set; }
+    }
+}

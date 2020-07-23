@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\OH_KPI_ZAPI\bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.Cells" Version="20.7.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OH_KPI_Common\OH_KPI_Common.csproj" />
+    <ProjectReference Include="..\OH_KPI_IRepository\OH_KPI_IRepository.csproj" />
+    <ProjectReference Include="..\OH_KPI_IServices\OH_KPI_IServices.csproj" />
+  </ItemGroup>
+
+</Project>
