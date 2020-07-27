@@ -14,20 +14,20 @@ namespace OH_KPI_IServices.ComServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<OutMQuery> GetComZBList(InMQuery model);
+        Task<OutMQuery> GetComZbList(InMQuery model);
 
         /// <summary>
         /// 指标对比接口
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<OutZBCom> GetZBComData(InZBCom model);
+        Task<OutZBCom> GetZbComData(InZBCom model);
 
         /// <summary>
         /// 历史指标数据
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<OutZBHis> GetZBHisData(InZBHis model);
+        Task<OutZBHis> GetZbHisData(InZBHis model);
     }
 }

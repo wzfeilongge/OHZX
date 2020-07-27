@@ -14,8 +14,8 @@ namespace OH_KPI_Models.MSModels
             get
             {
                 //创建单一实例
-                MSDapperHelper.GetInstance();
-                return MSDapperHelper.OpenCurrentDbConnection();
+                MsDapperHelper.GetInstance();
+                return MsDapperHelper.OpenCurrentDbConnection();
             }
         }
 

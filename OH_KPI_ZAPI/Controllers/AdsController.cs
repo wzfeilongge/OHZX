@@ -30,7 +30,7 @@ namespace OH_KPI_ZAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("GetZBList")]
-        public async Task<IActionResult> GetZBList([FromForm] InZBData model)
+        public async Task<IActionResult> GetZbList([FromForm] InZBData model)
         {
             var data = await _adsService.GetZBList(model);
 
@@ -65,7 +65,7 @@ namespace OH_KPI_ZAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("GetZB")]
-        public async Task<IActionResult> GetZB()
+        public async Task<IActionResult> GetZb()
         {
             var data = await _adsService.GetAllZB();
             return Ok(new ResultMessage<OutZB>

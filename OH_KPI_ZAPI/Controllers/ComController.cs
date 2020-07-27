@@ -28,9 +28,9 @@ namespace OH_KPI_ZAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("GetComZBList")]
-        public async Task<IActionResult> GetComZBList([FromForm] InMQuery model)
+        public async Task<IActionResult> GetComZbList([FromForm] InMQuery model)
         {
-            var data = await comService.GetComZBList(model);
+            var data = await comService.GetComZbList(model);
             return Ok(new ResutModel<OutMQuery>
             {
 
@@ -48,9 +48,9 @@ namespace OH_KPI_ZAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("GetZBCom")]
-        public async Task<IActionResult> GetZBCom([FromForm] InZBCom model)
+        public async Task<IActionResult> GetZbCom([FromForm] InZBCom model)
         {
-            var data = await comService.GetZBComData(model);
+            var data = await comService.GetZbComData(model);
             return Ok(new ResutModel<OutZBCom>
             {
                 data = data,
@@ -67,9 +67,9 @@ namespace OH_KPI_ZAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("GetHisZB")]
-        public async Task<IActionResult> GetHisZB([FromForm] InZBHis model)
+        public async Task<IActionResult> GetHisZb([FromForm] InZBHis model)
         {
-            var data = await comService.GetZBHisData(model);
+            var data = await comService.GetZbHisData(model);
             return Ok(new ResutModel<OutZBHis>
             {
                 data = data,

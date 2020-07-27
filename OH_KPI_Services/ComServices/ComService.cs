@@ -16,10 +16,8 @@ namespace OH_KPI_Services.ComServices
 {
     public class ComService : IComService
     {
-        private readonly IOHZBRepository ohSetRepository;
-
         private readonly ILogger<ComService> _logger;
-
+        private readonly IOHZBRepository ohSetRepository;
         public ComService(IOHZBRepository ohSetRepository, ILogger<ComService> logger)
         {
             this.ohSetRepository = ohSetRepository;
@@ -27,28 +25,28 @@ namespace OH_KPI_Services.ComServices
         }
 
 
-        public async Task<OutMQuery> GetComZBList(InMQuery model)
+        public async Task<OutMQuery> GetComZbList(InMQuery model)
         {
-            OutMQuery outMQuery = new OutMQuery
+            var outMQuery = new OutMQuery
             {
                 Body = new List<OutMQuery_Body>(),
                 Head = new List<OutMQuery_Head>()
             };
 
-            var Head = new List<OutMQuery_Head>();
+            var head = new List<OutMQuery_Head>();
             var data = await ohSetRepository.QueryFirstOrDefaultAsync<OhSet>("select * from OH_Set");
             outMQuery.UpdateTime = data.UpdateTime.ToString("yyyy-MM-dd HH:mm");
-            Head.Add(new OutMQuery_Head
+            head.Add(new OutMQuery_Head
             {
                 Name = "指标名称"
             });
             var zb = await ohSetRepository.QueryAsync<OhZb>("select * from OH_ZB where IsEnable=1 and CID=0");
             if (model == null)
             {
-                string time_n = DateTime.Now.ToString("yyyy-MM");
-                Head.Add(new OutMQuery_Head
+                var timeN = DateTime.Now.ToString("yyyy-MM");
+                head.Add(new OutMQuery_Head
                 {
-                    Name = $"全院{time_n}至{time_n}"
+                    Name = $"全院{timeN}至{timeN}"
                 });
 
                 foreach (var item in zb)
@@ -59,20 +57,19 @@ namespace OH_KPI_Services.ComServices
                     };
                     var type = item.Type;
                     var formula = item.Formula;
-                    string[] array = Method.GetInteger(item.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
-                    DataTable dt = new DataTable();
+                    var array = Method.GetInteger(item.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
+                    var dt = new DataTable();
                     Body.Row.Add(new OutMQuery_Row
                     {
                         val = item.Zbmc
                     });
                     Body.Type = item.Type.ToString();
-                    string re = string.Empty;
-                    for (int i = 0; i < array.Length; i++)
+                    foreach (var t in array)
                     {
-                        re = await ohSetRepository.GetZBList(time_n, time_n, array[i].ToString());
-                        formula = formula.Replace("'" + array[i].ToString() + "'", re);
+                        var re = await ohSetRepository.GetZBList(timeN, timeN, t.ToString());
+                        formula = formula.Replace("'" + t.ToString() + "'", re);
                     }
-                    var ret = double.Parse(dt.Compute(formula, "false").ToString()).ToString("0.##");
+                    var ret = double.Parse(dt.Compute(formula, "false").ToString() ?? string.Empty).ToString("0.##");
 
                     Body.Row.Add(new OutMQuery_Row
                     {
@@ -87,33 +84,20 @@ namespace OH_KPI_Services.ComServices
                 var type_c = string.Empty;
                 foreach (var item in model.Info)
                 {
-
-                    switch (item.Type)
+                    table = item.Type switch
                     {
-                        case "bm":
-                            table = "OH_CBXX";
-                            break;
-                        case "lx":
-                            table = "OH_AJLX";
-                            break;
-                        case "xz":
-                            table = "OH_AJXZ";
-                            break;
-                        case "ay":
-                            table = "OH_AY";
-                            break;
-                        case "cbr":
-                            table = "OH_CBXX";
-                            break;
-                        case "qt":
-                            table = "";
-                            break;
-                    }
-
+                        "bm" => "OH_CBXX",
+                        "lx" => "OH_AJLX",
+                        "xz" => "OH_AJXZ",
+                        "ay" => "OH_AY",
+                        "cbr" => "OH_CBXX",
+                        "qt" => "",
+                        _ => table
+                    };
 
                     if (string.IsNullOrEmpty(table))
                     {
-                        Head.Add(new OutMQuery_Head
+                        head.Add(new OutMQuery_Head
                         {
                             Name = $"全院{item.StartTime}至{item.EndTime}"
                         });
@@ -126,7 +110,7 @@ namespace OH_KPI_Services.ComServices
                             Id = item.Data.ToString()
                         });
                         _logger.LogWarning($"sql 语句返回 dynamic   {JsonConvert.SerializeObject(data)}");
-                        Head.Add(new OutMQuery_Head
+                        head.Add(new OutMQuery_Head
                         {
                             Name = $"{name}  {item.StartTime}至{item.EndTime}"
                         });
@@ -135,78 +119,64 @@ namespace OH_KPI_Services.ComServices
 
                 foreach (var item in zb)
                 {
-                    var Body = new OutMQuery_Body
+                    var body = new OutMQuery_Body
                     {
                         Row = new List<OutMQuery_Row>()
                     };
-                    var type = item.Type;
                     var formula = item.Formula;
-                    string[] array = Method.GetInteger(item.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
-                    DataTable dt = new DataTable();
-                    Body.Row.Add(new OutMQuery_Row
+                    var array = Method.GetInteger(item.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
+                    var dt = new DataTable();
+                    body.Row.Add(new OutMQuery_Row
                     {
                         val = item.Zbmc
                     });
-                    Body.Type = item.Type.ToString();
-                    string re = string.Empty;
-                    for (int k = 0; k < model.Info.Count; k++)
+                    body.Type = item.Type.ToString();
+                    foreach (var t in model.Info)
                     {
-                        switch (model.Info[k].Type)
+                        type_c = t.Type switch
                         {
-
-                            case "bm":
-                                type_c = "1";
-                                break;
-                            case "lx":
-                                type_c = "2";
-                                break;
-                            case "xz":
-                                type_c = "3";
-                                break;
-                            case "ay":
-                                type_c = "4";
-                                break;
-                            case "cbr":
-                                type_c = "5";
-                                break;
-                            case "qt":
-                                type_c = "0";
-                                break;
+                            "bm" => "1",
+                            "lx" => "2",
+                            "xz" => "3",
+                            "ay" => "4",
+                            "cbr" => "5",
+                            "qt" => "0",
+                            _ => type_c
+                        };
+                        foreach (var t1 in array)
+                        {
+                            var re = await ohSetRepository.GetComList(t.StartTime, t.EndTime, t1, type_c, t.Data);
+                            formula = formula.Replace("'" + t1 + "'", re);
                         }
-                        for (int h = 0; h < array.Length; h++)
+                        var ret = double.Parse(dt.Compute(formula, "false").ToString() ?? string.Empty).ToString("0.##");
+                        body.Row.Add(new OutMQuery_Row
                         {
-                            re = await ohSetRepository.GetComList(model.Info[k].StartTime, model.Info[k].EndTime, array[h].ToString(), type_c, model.Info[k].Data);
-                            formula = formula.Replace("'" + array[h].ToString() + "'", re);
-                        }
-                        var Ret = double.Parse(dt.Compute(formula, "false").ToString()).ToString("0.##");
-                        Body.Row.Add(new OutMQuery_Row
-                        {
-                            val = Ret
+                            val = ret
                         });
-                        outMQuery.Body.Add(Body);
+                        outMQuery.Body.Add(body);
                     }
                 }
             }
 
-            outMQuery.Head = Head;
+            outMQuery.Head = head;
             return outMQuery;
         }
 
-        public async Task<OutZBCom> GetZBComData(InZBCom model)
+        public async Task<OutZBCom> GetZbComData(InZBCom model)
         {
-            OutZBCom outZBCom = new OutZBCom
+            var outZbCom = new OutZBCom
             {
                 Head = new List<OutZBCom_Head>(),
                 Body = new List<OutZBCom_Body>()
             };
 
-            var Head = new List<OutZBCom_Head>();
+            var head = new List<OutZBCom_Head>();
 
             var data = await ohSetRepository.QueryFirstOrDefaultAsync<OhSet>("select * from OH_Set");
 
-            outZBCom.UpdateTime = data.UpdateTime.ToString("yyyy-MM-dd HH:mm");
+            outZbCom.UpdateTime = data.UpdateTime.ToString("yyyy-MM-dd HH:mm");
 
-            Head.Add(new OutZBCom_Head
+            head.Add(new OutZBCom_Head
             {
                 Name = "名称"
             });
@@ -217,46 +187,38 @@ namespace OH_KPI_Services.ComServices
                 return new OutZBCom();
             }
 
-            foreach (var item in model.ZB)
-            {
-                Head.Add(new OutZBCom_Head
-                {
-                    Name = $"{item.Name}  {item.StartTime} 至  {item.EndTime}"
-                });
-            }
+            head.AddRange(model.ZB.Select(item => new OutZBCom_Head { Name = $"{item.Name}  {item.StartTime} 至  {item.EndTime}" }));
 
-            DataTable dt = new DataTable();
-            for (int i = 0; i < model.Info.Count; i++)
+            var dt = new DataTable();
+            var typeC = string.Empty;
+            foreach (var t in model.Info)
             {
-                string table = string.Empty;
-                string type_c = string.Empty;
-                string re_n = string.Empty;
-                switch (model.Info[i].Type)
+                var table = string.Empty;
+                switch (t.Type)
                 {
                     case "bm":
                         table = "OH_CBXX";
-                        type_c = "1";
+                        typeC = "1";
                         break;
                     case "lx":
                         table = "OH_AJLX";
-                        type_c = "2";
+                        typeC = "2";
                         break;
                     case "xz":
                         table = "OH_AJXZ";
-                        type_c = "3";
+                        typeC = "3";
                         break;
                     case "ay":
                         table = "OH_AY";
-                        type_c = "4";
+                        typeC = "4";
                         break;
                     case "cbr":
                         table = "OH_CBXX";
-                        type_c = "5";
+                        typeC = "5";
                         break;
                     case "qt":
-                        re_n = "全院";
                         table = "";
-                        type_c = "0";
+                        typeC = "0";
                         break;
                 }
 
@@ -264,23 +226,22 @@ namespace OH_KPI_Services.ComServices
                 {
                     var name = await ohSetRepository.QueryFirstOrDefaultAsync<dynamic>($"select name from {table} where Id=@Id", new
                     {
-                        Id = model.Info[i].Data.ToString()
+                        Id = t.Data.ToString()
                     });
                     _logger.LogWarning($"sql 语句返回 dynamic   {JsonConvert.SerializeObject(data)}");
-                    Head.Add(new OutZBCom_Head
+                    head.Add(new OutZBCom_Head
                     {
                         Name = name
                     });
                 }
-                for (int j = 0; j < model.ZB.Count; j++)
+                foreach (var t1 in model.ZB)
                 {
-
-                    var zbdata = await ohSetRepository.QueryAsync<OhZb>("select * from OH_ZB where IsEnable=1 and CID=0 and ID=@ID", new
+                    var databag = await ohSetRepository.QueryAsync<OhZb>("select * from OH_ZB where IsEnable=1 and CID=0 and ID=@ID", new
                     {
-                        ID = model.ZB[j].ID
+                        t1.ID
                     });
 
-                    foreach (var item in zbdata)
+                    foreach (var item in databag)
                     {
                         var Body = new OutZBCom_Body
                         {
@@ -288,36 +249,36 @@ namespace OH_KPI_Services.ComServices
                         };
                         var array = Method.GetInteger(item.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
 
-                        for (int h = 0; h < array.Length; h++)
+                        foreach (var t2 in array)
                         {
-                            var re = await ohSetRepository.GetComList(model.ZB[j].StartTime, model.ZB[j].EndTime, array[h].ToString(), type_c, model.Info[i].Data);
-                            item.Formula = item.Formula.Replace("'" + array[h].ToString() + "'", re);
+                            var re = await ohSetRepository.GetComList(t1.StartTime, t1.EndTime, t2.ToString(), typeC, t.Data);
+                            item.Formula = item.Formula.Replace("'" + t2.ToString() + "'", re);
                         }
-                        var Ret = double.Parse(dt.Compute(item.Formula, "false").ToString()).ToString("0.##");
+                        var Ret = double.Parse(dt.Compute(item.Formula, "false").ToString() ?? string.Empty).ToString("0.##");
 
                         Body.Row.Add(new OutZBCom_Row
                         {
                             val = Ret
                         });
-                        outZBCom.Body.Add(Body);
+                        outZbCom.Body.Add(Body);
                     }
                 }
             }
-            outZBCom.Head = Head;
-            return outZBCom;
+            outZbCom.Head = head;
+            return outZbCom;
         }
 
-        public async Task<OutZBHis> GetZBHisData(InZBHis model)
+        public async Task<OutZBHis> GetZbHisData(InZBHis model)
         {
-            OutZBHis outZBHis = new OutZBHis
+            var outZbHis = new OutZBHis
             {
                 Body = new List<OutZBHis_Body>(),
                 Head = new List<OutZBHis_Head>()
             };
-            var Head = new List<OutZBHis_Head>();
+            var head = new List<OutZBHis_Head>();
             var data = await ohSetRepository.QueryFirstOrDefaultAsync<OhSet>("select * from OH_Set");
-            outZBHis.UpdateTime = data.UpdateTime.ToString("yyyy-MM-dd HH:mm");
-            Head.Add(new OutZBHis_Head
+            outZbHis.UpdateTime = data.UpdateTime.ToString("yyyy-MM-dd HH:mm");
+            head.Add(new OutZBHis_Head
             {
                 Name = "时间"
             });
@@ -326,68 +287,65 @@ namespace OH_KPI_Services.ComServices
                 return new OutZBHis();
             }
 
-            for (int k = 0; k < model.Info.Count; k++)
+            foreach (var t in model.Info)
             {
-              var  re_n = await ohSetRepository.QueryFirstOrDefaultAsync<dynamic>("select name from OH_CBXX where ID=@Id",new {Id= model.Info[k].Data.ToString() });
-                Head.Add(new OutZBHis_Head
+                var reN = await ohSetRepository.QueryFirstOrDefaultAsync<dynamic>("select name from OH_CBXX where ID=@Id", new { Id = t.Data.ToString() });
+                head.Add(new OutZBHis_Head
                 {
-                    Name = re_n +model.Name
+                    Name = reN + model.Name
                 });
 
                 _logger.LogWarning($"sql 语句返回 dynamic   {JsonConvert.SerializeObject(data)}");
             }
 
-            DataTable dt = new DataTable();
+            var dt = new DataTable();
 
-            var zbdata = await ohSetRepository.QueryFirstOrDefaultAsync<OhZb>("select * from OH_ZB where IsEnable=1 and CID=0 and ID=@Id", new { Id=model.ID});
+            var databag = await ohSetRepository.QueryFirstOrDefaultAsync<OhZb>("select * from OH_ZB where IsEnable=1 and CID=0 and ID=@Id", new { Id = model.ID });
 
 
-            var array= Method.GetInteger(zbdata.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
+            var array = Method.GetInteger(databag.Formula).Split(",").GroupBy(p => p).Select(p => p.Key).ToArray();
 
-            string time = Method.GetHisDate();
+            var time = Method.GetHisDate();
 
-            HisTime adl = JsonConvert.DeserializeObject<HisTime>(time);
+            var adl = JsonConvert.DeserializeObject<HisTime>(time);
 
-            for (int i = 0; i < adl.Info.Count; i++)
+            foreach (var t in adl.Info)
             {
-                var Body = new OutZBHis_Body
+                var body = new OutZBHis_Body
                 {
                     Row = new List<OutZBHis_Row>()
                 };
-                Body.Row.Add(new OutZBHis_Row
+                body.Row.Add(new OutZBHis_Row
                 {
-                    val = adl.Info[i].Name
-                }) ;
+                    val = t.Name
+                });
 
-                var type_c = string.Empty;
-                for (int k = 0; k < model.Info.Count; k++)
+                var typeC = string.Empty;
+                foreach (var t1 in model.Info)
                 {
-                    switch (model.Info[k].Type)
+                    typeC = t1.Type switch
                     {
-                        case "bm":
-                            type_c = "1";
-                            break;
-                        case "cbr":
-                            type_c = "5";
-                            break;
+                        "bm" => "1",
+                        "cbr" => "5",
+                        _ => typeC
+                    };
+
+                    foreach (var t2 in array)
+                    {
+                        var re = await ohSetRepository.GetComList(t.StartTime, t.EndTime, t2.ToString(), typeC, t1.Data);
+                        databag.Formula = databag.Formula.Replace("'" + t2.ToString() + "'", re);
                     }
 
-                    for (int h = 0; h < array.Length; h++)
+                    var ret = double.Parse(dt.Compute(databag.Formula, "false").ToString() ?? string.Empty).ToString("0.##");
+                    body.Row.Add(new OutZBHis_Row
                     {
-                       var re = await ohSetRepository.GetComList(adl.Info[i].StartTime, adl.Info[i].EndTime, array[h].ToString(), type_c, model.Info[k].Data);
-                       zbdata.Formula = zbdata.Formula.Replace("'" + array[h].ToString() + "'", re);
-                    }
-
-                   var  Ret = double.Parse(dt.Compute(zbdata.Formula, "false").ToString()).ToString("0.##");
-                    Body.Row.Add(new OutZBHis_Row
-                    {
-                        val = Ret
+                        val = ret
                     });
                 }
-                outZBHis.Body.Add(Body);
+                outZbHis.Body.Add(body);
             }
-            outZBHis.Head = Head;
-            return outZBHis;
+            outZbHis.Head = head;
+            return outZbHis;
         }
     }
 }

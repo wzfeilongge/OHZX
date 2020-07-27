@@ -4,7 +4,7 @@
         <name>OH_KPI_ZAPI</name>
     </assembly>
     <members>
-        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetZBList(OH_KPI_Application.InZBData)">
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetZbList(OH_KPI_Application.InZBData)">
             <summary>
             首页全院指标数据接口
             </summary>
@@ -18,7 +18,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetZB">
+        <member name="M:OH_KPI_ZAPI.Controllers.AdsController.GetZb">
             <summary>
             获取所有指标接口（公共接口）
             </summary>
@@ -37,21 +37,21 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetComZBList(OH_KPI_Application.ComDto.InMQuery)">
+        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetComZbList(OH_KPI_Application.ComDto.InMQuery)">
             <summary>
             质效分析首页指标接口
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetZBCom(OH_KPI_Application.ComDto.InZBCom)">
+        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetZbCom(OH_KPI_Application.ComDto.InZBCom)">
             <summary>
             指标对比接口
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetHisZB(OH_KPI_Application.ComDto.InZBHis)">
+        <member name="M:OH_KPI_ZAPI.Controllers.ComController.GetHisZb(OH_KPI_Application.ComDto.InZBHis)">
             <summary>
             历史指标数据接口
             </summary>
