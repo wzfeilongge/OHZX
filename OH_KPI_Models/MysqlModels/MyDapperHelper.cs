@@ -76,24 +76,15 @@ namespace OH_KPI_Models.MysqlModels
         {
             if (DbConnection == null)
             {
-                switch (Type)
+                DbConnection = Type switch
                 {
-                    case 0:
-                        new Exception("数据库参数错误");
-                        break;
-                    case 1:
-                        DbConnection = new MySqlConnection(Connection);
-                        break;
-                    case 2:
-                        DbConnection = new SqlConnection(Connection);
-                        break;
-                    case 3:
-                        DbConnection = new OracleConnection(Connection);
-                        break;
-                    case 4:
-                        DbConnection = new SqliteConnection(Connection);
-                        break;
-                }
+                    0 => throw new Exception("数据库参数错误"),
+                    1 => new MySqlConnection(Connection),
+                    2 => new SqlConnection(Connection),
+                    3 => new OracleConnection(Connection),
+                    4 => new SqliteConnection(Connection),
+                    _ => DbConnection
+                };
             }
             //判断连接状态
             if (DbConnection != null && DbConnection.State == ConnectionState.Closed)
